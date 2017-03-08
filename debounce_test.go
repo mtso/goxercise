@@ -5,16 +5,13 @@ import (
 	"time"
 )
 
-func increment(i *int) {
-	*i++
-}
-
 func Test_DebounceSimple(t *testing.T) {
 	called := 0
 	timer := time.NewTimer(time.Second)
 	donetimer := time.NewTimer(time.Second * 3)
 
 	// TODO: write debounce such that any function may be passed in...
+	// including ones with arguments
 	debounced := debounce(func() {
 		called += 1
 	}, time.Second)
