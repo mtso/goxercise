@@ -33,3 +33,32 @@ func Test_DebounceSimple(t *testing.T) {
 		t.Errorf("expected called to equal 2, but was %v", called)
 	}
 }
+
+func Test_Debounce(t *testing.T) {
+	called := 0
+	debounced := debounce(func() {
+		called += 1
+	}, time.Millisecond * 50)
+
+	go func() {
+		debounced()
+		debounced()
+	}()
+
+	done := make(chan int)
+
+	setTimeout(func() {
+		if called > 0 {
+			t.Errorf("expected called to == 0, but got %v", called)
+		}
+	}, time.Millisecond * 10)
+	
+	setTimeout(func() {
+		if called > 1 {
+			t.Errorf("expected called to == 1, but got %v", called)
+		}
+		done <- 0
+	}, time.Millisecond * 100)
+
+	<-done
+}
