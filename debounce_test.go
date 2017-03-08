@@ -38,7 +38,7 @@ func Test_Debounce(t *testing.T) {
 	called := 0
 	debounced := debounce(func() {
 		called += 1
-	}, time.Millisecond * 50)
+	}, time.Millisecond*50)
 
 	go func() {
 		debounced()
@@ -51,14 +51,14 @@ func Test_Debounce(t *testing.T) {
 		if called > 0 {
 			t.Errorf("expected called to == 0, but got %v", called)
 		}
-	}, time.Millisecond * 10)
-	
+	}, time.Millisecond*10)
+
 	setTimeout(func() {
 		if called > 1 {
 			t.Errorf("expected called to == 1, but got %v", called)
 		}
 		done <- 0
-	}, time.Millisecond * 100)
+	}, time.Millisecond*100)
 
 	<-done
 }
