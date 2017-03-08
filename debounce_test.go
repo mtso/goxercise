@@ -15,18 +15,18 @@ func Test_DebounceSimple(t *testing.T) {
 	donetimer := time.NewTimer(time.Second * 3)
 
 	// TODO: write debounce such that any function may be passed in...
-	debounced := debounce(func(arg *int) {
-		*arg += 1
+	debounced := debounce(func() {
+		called += 1
 	}, time.Second)
 
 	go func() {
 		<-timer.C
-		debounced(&called)
-		debounced(&called)
+		debounced()
+		debounced()
 	}()
 
-	debounced(&called)
-	debounced(&called)
+	debounced()
+	debounced()
 
 	<-donetimer.C
 

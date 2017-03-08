@@ -2,6 +2,6 @@ package exercises
 
 import "time"
 
-func debounce(callback func(arg *int), delay time.Duration) func(arg *int) {
+func debounce(callback func(), delay time.Duration) func() {
 	return callback
 }
