@@ -31,7 +31,7 @@ var sampleComments = [...]struct {
 
 func TestFormatter(t *testing.T) {
 	formatter := NewFormatter(80)
-	actual := formatter.fmt(sampleComments[0].in)
+	actual := formatter.Align(sampleComments[0].in)
 
 	if !util.AssertEqualBytes(actual, sampleComments[0].out) {
 		t.Errorf("%q != %q", expected, sampleComments[0])
